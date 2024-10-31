@@ -19,7 +19,9 @@
 - AWS EKS (Kubernetes)
 - Helm (Monitoring using grafana and prometheus)
 
-Pipeline Workflow	
+#
+## Pipeline Workflow	
+#
 1. Code Push & Pull: Developers push code to GitHub, and Jenkins pulls it to initiate CI/CD.
 2. Dependency and Quality Analysis: Jenkins CI job runs OWASP Dependency Check for security and SonarQube for code quality analysis.
 3. Vulnerability Scan: Trivy performs a filesystem scan on Docker images to check for vulnerabilities.
