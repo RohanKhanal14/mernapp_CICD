@@ -3,7 +3,7 @@
 ### In this demo, we will see how to deploy an end to end three tier MERN stack application on EKS cluster.
 #
 ### <mark>Project Deployment Flow:</mark>
-![Uploading Screenshot from 2024-10-31 21-01-26.png…]()
+![Screenshot from 2024-10-31 21-01-26](https://github.com/user-attachments/assets/2d23e595-190a-4fa8-b699-9c496d646700)
 
 #
 
