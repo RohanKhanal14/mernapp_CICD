@@ -32,7 +32,7 @@ pipeline {
         stage('Git: Code Checkout') {
             steps {
                 script{
-                    code_checkout("https://github.com/LondheShubham153/Wanderlust-Mega-Project.git","main")
+                    code_checkout("https://github.com/RohanKhanal14/mernapp_CICD.git","master")
                 }
             }
         }
@@ -69,39 +69,39 @@ pipeline {
             }
         }
         
-        stage('Exporting environment variables') {
-            parallel{
-                stage("Backend env setup"){
-                    steps {
-                        script{
-                            dir("Automations"){
-                                sh "bash updatebackendnew.sh"
-                            }
-                        }
-                    }
-                }
+        // stage('Exporting environment variables') {
+        //     parallel{
+        //         stage("Backend env setup"){
+        //             steps {
+        //                 script{
+        //                     dir("Automations"){
+        //                         sh "bash updatebackendnew.sh"
+        //                     }
+        //                 }
+        //             }
+        //         }
                 
-                stage("Frontend env setup"){
-                    steps {
-                        script{
-                            dir("Automations"){
-                                sh "bash updatefrontendnew.sh"
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //         stage("Frontend env setup"){
+        //             steps {
+        //                 script{
+        //                     dir("Automations"){
+        //                         sh "bash updatefrontendnew.sh"
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         
         stage("Docker: Build Images"){
             steps{
                 script{
                         dir('backend'){
-                            docker_build("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","trainwithshubham")
+                            docker_build("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","rohankhanal14")
                         }
                     
                         dir('frontend'){
-                            docker_build("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","trainwithshubham")
+                            docker_build("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","rohankhanal14")
                         }
                 }
             }
@@ -110,8 +110,8 @@ pipeline {
         stage("Docker: Push to DockerHub"){
             steps{
                 script{
-                    docker_push("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","trainwithshubham") 
-                    docker_push("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","trainwithshubham")
+                    docker_push("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","rohankhanal14") 
+                    docker_push("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","rohankhanal14")
                 }
             }
         }
