@@ -1,6 +1,6 @@
 @Library('Shared') _
 pipeline {
-    agent {label 'Node'}
+    agent any
     
     parameters {
         string(name: 'FRONTEND_DOCKER_TAG', defaultValue: '', description: 'Frontend Docker tag of the image built by the CI job')
@@ -56,20 +56,24 @@ pipeline {
         stage("Git: Code update and push to GitHub"){
             steps{
                 script{
-                    withCredentials([gitUsernamePassword(credentialsId: 'Github-cred', gitToolName: 'Default')]) {
+                    withCredentials([gitUsernamePassword(credentialsId: 'Github', gitToolName: 'Default')]) {
                         sh '''
                         echo "Checking repository status: "
                         git status
-                    
+
+                        echo "Setting Git identity: "
+                        git config --global user.email "rohankhanal114@gmail.com"
+                        git config --global user.name "Rohan"
+
                         echo "Adding changes to git: "
                         git add .
-                        
-                        echo "Commiting changes: "
-                        git commit -m "Updated environment variables"
-                        
-                        echo "Pushing changes to github: "
+
+                        echo "Committing changes: "
+                        git commit -m "Updated environment variables" || echo "No changes to commit."
+
+                        echo "Pushing changes to GitHub: "
                         git push https://github.com/RohanKhanal14/mernapp_CICD.git master
-                    '''
+                        '''
                     }
                 }
             }
