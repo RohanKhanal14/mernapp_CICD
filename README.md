@@ -10,7 +10,7 @@ WanderLust is a simple MERN travel blog website ✈ This project is aimed to hel
 ### In this demo, we will see how to deploy an end to end three tier MERN stack application on EKS cluster.
 #
 ### <mark>Project Deployment Flow:</mark>
-<img src="https://github.com/DevMadhup/Wanderlust-Mega-Project/blob/main/Assets/DevSecOps%2BGitOps.gif" />
+<img src="Assets/DevSecOps+GitOps.gif" />
 
 #
 
@@ -23,7 +23,7 @@ WanderLust is a simple MERN travel blog website ✈ This project is aimed to hel
 - Trivy (Filesystem Scan)
 - ArgoCD (CD)
 - Redis (Caching)
-- AWS EKS (Kubernetes)
+- AWS EKS (Kubernetes) / Minikube
 - Helm (Monitoring using grafana and prometheus)
 
 ### How pipeline will look after deployment:
