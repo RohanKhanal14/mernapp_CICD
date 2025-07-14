@@ -18,15 +18,15 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: rohankhanal14/wanderlust-frontend-beta:v2
+          image: rohankhanal14/wanderlust-frontend-beta:v2.5
           ports:
-            - containerPort: 5173
+            - containerPort: 80
           resources:
             requests:
-              memory: "64Mi"
+              memory: "256Mi"
               cpu: "250m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"
 ---
 apiVersion: v1
@@ -39,7 +39,7 @@ spec:
   selector:
     app: frontend
   ports:
-    - port: 5173
-      targetPort: 5173
+    - port: 80
+      targetPort: 80
       protocol: TCP
       nodePort: 31000
