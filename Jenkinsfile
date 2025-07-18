@@ -1,6 +1,6 @@
 @Library('Shared') _
 pipeline {
-    agent any
+    agent {label 'Node'}
     
     environment{
         SONAR_HOME = tool "Sonar"
@@ -45,13 +45,13 @@ pipeline {
             }
         }
 
-        // stage("OWASP: Dependency check"){
-        //     steps{
-        //         script{
-        //             owasp_dependency()
-        //         }
-        //     }
-        // }
+        stage("OWASP: Dependency check"){
+            steps{
+                script{
+                    owasp_dependency()
+                }
+            }
+        }
         
         stage("SonarQube: Code Analysis"){
             steps{
@@ -68,6 +68,30 @@ pipeline {
                 }
             }
         }
+        
+        // stage('Exporting environment variables') {
+        //     parallel{
+        //         stage("Backend env setup"){
+        //             steps {
+        //                 script{
+        //                     dir("Automations"){
+        //                         sh "bash updatebackendnew.sh"
+        //                     }
+        //                 }
+        //             }
+        //         }
+                
+        //         stage("Frontend env setup"){
+        //             steps {
+        //                 script{
+        //                     dir("Automations"){
+        //                         sh "bash updatefrontendnew.sh"
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         
         stage("Docker: Build Images"){
             steps{
@@ -94,6 +118,7 @@ pipeline {
     }
     post{
         success{
+            archiveArtifacts artifacts: '*.xml', followSymlinks: false
             build job: "Wanderlust-CD", parameters: [
                 string(name: 'FRONTEND_DOCKER_TAG', value: "${params.FRONTEND_DOCKER_TAG}"),
                 string(name: 'BACKEND_DOCKER_TAG', value: "${params.BACKEND_DOCKER_TAG}")
