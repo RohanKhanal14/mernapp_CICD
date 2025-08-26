@@ -1,19 +1,22 @@
 #!/bin/bash
 
-# Get Minikube IP 
+# Get Minikube IP instead of EC2 instance IP
 minikube_ip=$(minikube ip)
 
 # Path to the .env file
-file_to_find="../frontend/.env.docker"
+file_to_find="../backend/.env.docker"
 
-# Check the current VITE_API_PATH in the .env file
-current_url=$(cat $file_to_find)
+# Check the current FRONTEND_URL in the .env file (line 4)
+current_url=$(sed -n "4p" $file_to_find)
 
 # Update the .env file if the IP address has changed
-if [[ "$current_url" != "VITE_API_PATH=\"http://${minikube_ip}:31100\"" ]]; then
+if [[ "$current_url" != "FRONTEND_URL=\"http://${minikube_ip}:5173\"" ]]; then
     if [ -f $file_to_find ]; then
-        sed -i -e "s|VITE_API_PATH.*|VITE_API_PATH=\"http://${minikube_ip}:31100\"|g" $file_to_find
+        sed -i -e "s|FRONTEND_URL.*|FRONTEND_URL=\"http://${minikube_ip}:5173\"|g" $file_to_find
+        echo "Updated FRONTEND_URL to http://${minikube_ip}:5173"
     else
         echo "ERROR: File not found."
     fi
+else
+    echo "No update needed. FRONTEND_URL already points to Minikube."
 fi
